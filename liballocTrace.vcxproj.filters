@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{3d5458bf-a191-4e74-a06b-ea8717bce5b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\stream">
+      <UniqueIdentifier>{bf1715ae-6102-4e40-a180-2f244a3b3132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\packet">
+      <UniqueIdentifier>{89b7ae5b-1a68-4205-9cf6-3be76b7f8d17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\os">
+      <UniqueIdentifier>{515ad8b4-d1d0-4f4d-8de5-b0dd523ee488}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\os\pipe">
+      <UniqueIdentifier>{c5952591-da91-478b-b587-125e730ddfdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\container">
+      <UniqueIdentifier>{68d6c45b-fef7-4143-9743-b2566cd69dbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\allocator">
+      <UniqueIdentifier>{79c9dba1-cc7f-440b-a7ec-b27f782e166b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{958841d2-7894-40ce-b47e-f40cbdf46e6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\extern">
+      <UniqueIdentifier>{7c1a4483-adee-407c-9d92-d9ff87ece1bf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Win32AllocRecorder.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Stream\BaseStream.h">
+      <Filter>src\stream</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Stream\FileStream.h">
+      <Filter>src\stream</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Stream\HandleStream.h">
+      <Filter>src\stream</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Stream\Stream.h">
+      <Filter>src\stream</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Stream\MemoryStream.h">
+      <Filter>src\stream</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Packet\DataPacket.hpp">
+      <Filter>src\packet</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Packet\DataPacketReader.hpp">
+      <Filter>src\packet</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OS\Lock.h">
+      <Filter>src\os</Filter>
+    </ClInclude>
+    <ClInclude Include="src\OS\Thread.h">
+      <Filter>src\os</Filter>
+    </ClInclude>
+    <ClInclude Include="src\os\pipe\NamedPipe.h">
+      <Filter>src\os\pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\os\pipe\NPComm.h">
+      <Filter>src\os\pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\container\BaseList.h">
+      <Filter>src\container</Filter>
+    </ClInclude>
+    <ClInclude Include="src\allocator\SingleObjectAllocator.hpp">
+      <Filter>src\allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\allocator\ObjectAllocator.hpp">
+      <Filter>src\allocator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AppDebug.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Type.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\alloctrace.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\_ast.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\_memchk.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Platform.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\packet\HeapAllocDataPacket.hpp">
+      <Filter>src\allocator</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Win32AllocRecorder.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Win32AllocTrace.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Stream\BaseStream.cpp">
+      <Filter>src\stream</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Stream\FileStream.cpp">
+      <Filter>src\stream</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Stream\HandleStream.cpp">
+      <Filter>src\stream</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Stream\MemoryStream.cpp">
+      <Filter>src\stream</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OS\Thread.cpp">
+      <Filter>src\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OS\Lock.cpp">
+      <Filter>src\os</Filter>
+    </ClCompile>
+    <ClCompile Include="src\os\pipe\NPClient.cpp">
+      <Filter>src\os\pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\os\pipe\NPObject.cpp">
+      <Filter>src\os\pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\os\pipe\NPServer.cpp">
+      <Filter>src\os\pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Win32Debug.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\extern\automatic_embedded.cpp">
+      <Filter>src\extern</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

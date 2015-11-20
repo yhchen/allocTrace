@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="MainWnd.cpp" />
+    <ClCompile Include="monitor\AllocTraceMonitor.cpp">
+      <Filter>monitor</Filter>
+    </ClCompile>
+    <ClCompile Include="treelist\TreeList.c">
+      <Filter>treelist</Filter>
+    </ClCompile>
+    <ClCompile Include="wnd\ClassedWnd.cpp">
+      <Filter>wnd</Filter>
+    </ClCompile>
+    <ClCompile Include="seh\Win32SEH.cpp">
+      <Filter>seh</Filter>
+    </ClCompile>
+    <ClCompile Include="string\UnicodeStringBase.cpp">
+      <Filter>string</Filter>
+    </ClCompile>
+    <ClCompile Include="string\StringConvert.cpp">
+      <Filter>string</Filter>
+    </ClCompile>
+    <ClCompile Include="string\AnsiString.cpp">
+      <Filter>string</Filter>
+    </ClCompile>
+    <ClCompile Include="base\Util.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\Atom.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="string\WinIconv.cpp">
+      <Filter>string</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="MainWnd.h" />
+    <ClInclude Include="monitor\AllocTraceMonitor.h">
+      <Filter>monitor</Filter>
+    </ClInclude>
+    <ClInclude Include="monitor\AllocTraceMonitorFile.hpp">
+      <Filter>monitor</Filter>
+    </ClInclude>
+    <ClInclude Include="monitor\AllocTraceMonitorNode.hpp">
+      <Filter>monitor</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="treelist\TreeList.h">
+      <Filter>treelist</Filter>
+    </ClInclude>
+    <ClInclude Include="wnd\ClassedWnd.h">
+      <Filter>wnd</Filter>
+    </ClInclude>
+    <ClInclude Include="seh\SEH.h">
+      <Filter>seh</Filter>
+    </ClInclude>
+    <ClInclude Include="base\Object.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\Atom.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="string\StringConvert.h">
+      <Filter>string</Filter>
+    </ClInclude>
+    <ClInclude Include="string\UnicodeString.h">
+      <Filter>string</Filter>
+    </ClInclude>
+    <ClInclude Include="string\UnicodeStringBase.h">
+      <Filter>string</Filter>
+    </ClInclude>
+    <ClInclude Include="string\UTF8String.h">
+      <Filter>string</Filter>
+    </ClInclude>
+    <ClInclude Include="string\UTF8StringBase.h">
+      <Filter>string</Filter>
+    </ClInclude>
+    <ClInclude Include="string\MultiByteString.h">
+      <Filter>string</Filter>
+    </ClInclude>
+    <ClInclude Include="string\MultiByteStringBase.h">
+      <Filter>string</Filter>
+    </ClInclude>
+    <ClInclude Include="string\String2String.hpp">
+      <Filter>string</Filter>
+    </ClInclude>
+    <ClInclude Include="string\AnsiString.h">
+      <Filter>string</Filter>
+    </ClInclude>
+    <ClInclude Include="mem\__gnu_hash_imp.h">
+      <Filter>mem</Filter>
+    </ClInclude>
+    <ClInclude Include="mem\hash_elements.h">
+      <Filter>mem</Filter>
+    </ClInclude>
+    <ClInclude Include="mem\MemoryBlock.hpp">
+      <Filter>mem</Filter>
+    </ClInclude>
+    <ClInclude Include="mem\ObjectArray.hpp">
+      <Filter>mem</Filter>
+    </ClInclude>
+    <ClInclude Include="mem\SmartObject.hpp">
+      <Filter>mem</Filter>
+    </ClInclude>
+    <ClInclude Include="mem\StringHashMap.hpp">
+      <Filter>mem</Filter>
+    </ClInclude>
+    <ClInclude Include="base\Array.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="string\SG2DStringDef.h">
+      <Filter>string</Filter>
+    </ClInclude>
+    <ClInclude Include="base\Util.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="string\WinIconv.h">
+      <Filter>string</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="monitor">
+      <UniqueIdentifier>{3bf97f5e-2910-4fd4-b952-195c6d3138ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="treelist">
+      <UniqueIdentifier>{2e82bfae-5653-4b3a-b180-6d0dc9545d94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="wnd">
+      <UniqueIdentifier>{ca7ea09f-9246-4534-9913-adf1c3ce840e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="seh">
+      <UniqueIdentifier>{c25b0c39-9758-46dc-a829-78e15fbaacc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base">
+      <UniqueIdentifier>{084d072d-8c2c-4b9a-b70e-e0c4602da7d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mem">
+      <UniqueIdentifier>{33734781-81d6-407a-b504-e67358f0a192}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="string">
+      <UniqueIdentifier>{e186bddc-cff0-4ad3-8c3f-b363df795aab}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="allocTrace.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="allocTrace.ico" />
+  </ItemGroup>
+</Project>
