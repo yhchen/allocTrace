@@ -5,8 +5,10 @@
 #include "os/Thread.h"
 #include "os/Lock.h"
 #include "stream/BaseStream.h"
-#include "os/pipe/NamedPipe.h"
 #include "packet/HeapAllocDataPacket.hpp"
+#include "container/HeapAllocList.h"
+#include "container/singleton.h"
+#include "recoder/AllocRecordOutputPipe.h"
 
 #pragma warning(disable:4996)
 
@@ -17,154 +19,18 @@ namespace alloctrace
 	using namespace alloctrace::container;
 	using namespace alloctrace::stream;
 	using namespace alloctrace::packet;
+	using namespace alloctrace::recoder;
 
 #pragma pack(push, 1)
 	struct AllocRecordEx : public AllocRecord
 	{
-		static const int MAX_STACK_SIZE = 80;
+		static const int MAX_STACK_SIZE = 128;
 		size_t frames[MAX_STACK_SIZE];
 	};
 #pragma pack(pop)
+	typedef HeapAllocList<AllocRecordEx> AllocRecordList;
 
-	class AllocRecordList : public CBaseList<AllocRecordEx>
-	{
-	public:
-		~AllocRecordList()
-		{
-			empty();
-		}
-		virtual void empty()
-		{
-			clear();
-			m_tMaxCount = 0;
-			if (m_pData)
-			{
-				HeapFree(GetProcessHeap(), 0, m_pData);
-				m_pData = 0;
-			}
-		}
-		virtual void reserve(INT_PTR count)
-		{
-			if (count > m_tCount && count != m_tMaxCount)
-			{
-				m_tMaxCount = count;
-				if (m_pData)
-					m_pData = (AllocRecordEx*)HeapReAlloc(GetProcessHeap(), HEAP_GENERATE_EXCEPTIONS, m_pData, sizeof(AllocRecordEx) * count);
-				else m_pData = (AllocRecordEx*)HeapAlloc(GetProcessHeap(), HEAP_GENERATE_EXCEPTIONS, sizeof(AllocRecordEx) * count);
-			}
-		}
-	};
-
-	class AllocRecordOutputPipe : public CBaseThread, public CNamedPipeClient
-	{
-	private:
-		CCSLock m_PacketsLock;
-		CHeapAllocDataPacket	m_Packets[2];
-		CHeapAllocDataPacket* m_pAppendPacket;
-		CHeapAllocDataPacket* m_pWritePacket;
-		DWORD64 dwReconnectPipeTime;
-	public:
-		/*static void* operator new (size_t size)
-		{
-		return HeapAlloc(GetProcessHeap(), HEAP_GENERATE_EXCEPTIONS, size);
-		}
-		static void operator delete (void* ptr)
-		{
-		HeapFree(GetProcessHeap(), 0, ptr);
-		}*/
-		AllocRecordOutputPipe() :CBaseThread(TRUE)
-		{
-			m_pAppendPacket = &m_Packets[0];
-			m_pWritePacket = &m_Packets[1];
-			m_pAppendPacket->reserve(8 * 1024 * 1024);
-			m_pWritePacket->reserve(8 * 1024 * 1024);
-			dwReconnectPipeTime = 0;
-			resume();
-		}
-		void writePipe(CHeapAllocDataPacket &packet)
-		{
-			if (m_boActive)
-			{
-				m_PacketsLock.Lock();
-				m_pAppendPacket->writeBuf(packet.getMemoryPtr(), packet.getLength());
-				m_PacketsLock.Unlock();
-			}
-		}
-	protected:
-		void OnRountine()
-		{
-			while (true)
-			{
-				if (connected())
-				{
-					sendBuffers();
-					if (terminated() && m_pWritePacket->getAvaliableLength() + m_pAppendPacket->getLength() >= 0)
-					{
-						//等待管道数据在另一端被读取
-						Sleep(1000);
-						break;
-					}
-				}
-				else
-				{
-					if (terminated())
-						break;
-				}
-				Sleep(4);
-			}
-		}
-	private:
-		bool connected()
-		{
-			if (m_boActive)
-				return true;
-			if (!m_sPipeName[0])
-				return false;
-			DWORD64 dwCurrTick = ::GetTickCount64();
-			if (dwCurrTick < dwReconnectPipeTime)
-				return false;
-			dwReconnectPipeTime = dwCurrTick + 3 * 1000;
-
-			Open();
-			if (m_boActive)
-			{
-				m_pWritePacket->setLength(0);
-				m_pAppendPacket->setLength(0);
-				DWORD dwPID = GetCurrentProcessId();
-				WriteBuf(&dwPID, sizeof(dwPID));
-				return true;
-			}
-
-			return false;
-		}
-		void sendBuffers()
-		{
-			size_t dwRemLen = m_pWritePacket->getAvaliableLength();
-			if (dwRemLen <= 0)
-			{
-				m_pWritePacket->setLength(0);
-				if (m_pAppendPacket->getLength() > 0)
-				{
-					m_PacketsLock.Lock();
-					CHeapAllocDataPacket *temp = m_pWritePacket;
-					m_pWritePacket = m_pAppendPacket;
-					m_pAppendPacket = temp;
-					m_PacketsLock.Unlock();
-					m_pWritePacket->setPosition(0);
-				}
-			}
-
-			dwRemLen = m_pWritePacket->getAvaliableLength();
-			if (dwRemLen > 0)
-			{
-				m_pWritePacket->adjustOffset(WriteBuf(m_pWritePacket->getOffsetPtr(), (int)dwRemLen));
-			}
-		}
-	};
-
-	extern bool g_boDestroyFlag;
-
-	class AllocRecorder : public CBaseThread
+	class AllocRecorder : public singleton<AllocRecorder>, public CBaseThread
 	{
 	public:
 		AllocRecordList m_RecordList[2];
@@ -178,7 +44,6 @@ namespace alloctrace
 	public:
 		AllocRecorder() :CBaseThread(TRUE)
 		{
-			g_boDestroyFlag = false;
 			m_pRecAppendList = &m_RecordList[0];
 			m_pRecProcList = &m_RecordList[1];
 			m_pRecAppendList->reserve(8192);
@@ -200,8 +65,6 @@ namespace alloctrace
 		{
 			terminate();
 			waitFor();
-			UninitializeAllocTracer();
-			g_boDestroyFlag = true;
 		}
 		void setOutputFile(CBaseStream *file)
 		{
@@ -304,8 +167,6 @@ namespace alloctrace
 			}
 		}
 	};
-
-	extern AllocRecorder allocRecorder;
 }
 
-#endif __ALLOC_TRACE_WIN32ALLOC_RECORDER_H__
+#endif // !__ALLOC_TRACE_WIN32ALLOC_RECORDER_H__

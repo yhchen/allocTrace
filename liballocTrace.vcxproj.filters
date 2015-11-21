@@ -28,11 +28,14 @@
     <Filter Include="src\extern">
       <UniqueIdentifier>{7c1a4483-adee-407c-9d92-d9ff87ece1bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\symbol">
+      <UniqueIdentifier>{b9fc7821-3a8a-45b3-9f3d-db31851ae7bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\recoder">
+      <UniqueIdentifier>{6be4df9a-d39e-4d8c-b815-2396cac7f88e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Win32AllocRecorder.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\Stream\BaseStream.h">
       <Filter>src\stream</Filter>
     </ClInclude>
@@ -75,9 +78,6 @@
     <ClInclude Include="src\allocator\ObjectAllocator.hpp">
       <Filter>src\allocator</Filter>
     </ClInclude>
-    <ClInclude Include="src\AppDebug.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="include\Type.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -96,11 +96,23 @@
     <ClInclude Include="src\packet\HeapAllocDataPacket.hpp">
       <Filter>src\allocator</Filter>
     </ClInclude>
+    <ClInclude Include="include\Symbol.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\container\HeapAllocList.h">
+      <Filter>src\container</Filter>
+    </ClInclude>
+    <ClInclude Include="src\container\singleton.h">
+      <Filter>src\container</Filter>
+    </ClInclude>
+    <ClInclude Include="src\recoder\AllocRecordOutputPipe.h">
+      <Filter>src\recoder</Filter>
+    </ClInclude>
+    <ClInclude Include="src\recoder\Win32AllocRecorder.hpp">
+      <Filter>src\recoder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Win32AllocRecorder.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\Win32AllocTrace.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -131,11 +143,14 @@
     <ClCompile Include="src\os\pipe\NPServer.cpp">
       <Filter>src\os\pipe</Filter>
     </ClCompile>
-    <ClCompile Include="src\Win32Debug.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\extern\automatic_embedded.cpp">
       <Filter>src\extern</Filter>
+    </ClCompile>
+    <ClCompile Include="src\symbol\Symbol.cpp">
+      <Filter>src\symbol</Filter>
+    </ClCompile>
+    <ClCompile Include="src\recoder\AllocRecordOutputPipe.cpp">
+      <Filter>src\recoder</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

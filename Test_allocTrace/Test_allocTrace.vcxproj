@@ -27,26 +27,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v120_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v120_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v120_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v120_xp</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -68,15 +68,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>D:\ProjectsRoots\cpp\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>D:\ProjectsRoots\cpp\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>D:\ProjectsRoots\cpp\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)\$(Platform)\</OutDir>
+    <IntDir>D:\ProjectsRoots\cpp\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -93,6 +101,7 @@
       <AdditionalDependencies>dbghelp.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
+      <ForceSymbolReferences>__allocTrace;</ForceSymbolReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -110,6 +119,7 @@
       <AdditionalDependencies>dbghelp.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
+      <ForceSymbolReferences>__allocTrace;</ForceSymbolReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -129,6 +139,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>Dbghelp.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ForceSymbolReferences>__allocTrace;</ForceSymbolReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -148,51 +159,16 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>Dbghelp.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ForceSymbolReferences>__allocTrace;</ForceSymbolReferences>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\src\allocator\ObjectAllocator.hpp" />
-    <ClInclude Include="..\src\allocator\SingleObjectAllocator.hpp" />
-    <ClInclude Include="..\src\container\BaseList.h" />
-    <ClInclude Include="..\src\OS\Lock.h" />
-    <ClInclude Include="..\src\os\pipe\NamedPipe.h" />
-    <ClInclude Include="..\src\os\pipe\NPComm.h" />
-    <ClInclude Include="..\src\OS\Platform.h" />
-    <ClInclude Include="..\src\OS\Thread.h" />
-    <ClInclude Include="..\src\Packet\DataPacket.hpp" />
-    <ClInclude Include="..\src\Packet\DataPacketReader.hpp" />
-    <ClInclude Include="..\src\Stream\BaseStream.h" />
-    <ClInclude Include="..\src\Stream\FileStream.h" />
-    <ClInclude Include="..\src\Stream\HandleStream.h" />
-    <ClInclude Include="..\src\Stream\MemoryStream.h" />
-    <ClInclude Include="..\src\Stream\Stream.h" />
-    <ClInclude Include="..\src\Type.h" />
-    <ClInclude Include="..\src\Win32AllocRecorder.hpp" />
-    <ClInclude Include="..\src\Win32AllocTraceDataPacket.hpp" />
-    <ClInclude Include="..\src\_ast.h" />
-    <ClInclude Include="..\src\_memchk.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\src\allocator\SimpleAllocTraceFormat.cpp" />
-    <ClCompile Include="..\src\OS\Lock.cpp" />
-    <ClCompile Include="..\src\os\pipe\NPClient.cpp" />
-    <ClCompile Include="..\src\os\pipe\NPObject.cpp" />
-    <ClCompile Include="..\src\os\pipe\NPServer.cpp" />
-    <ClCompile Include="..\src\OS\Thread.cpp" />
-    <ClCompile Include="..\src\Stream\BaseStream.cpp" />
-    <ClCompile Include="..\src\Stream\FileStream.cpp" />
-    <ClCompile Include="..\src\Stream\HandleStream.cpp" />
-    <ClCompile Include="..\src\Stream\MemoryStream.cpp" />
-    <ClCompile Include="..\src\Win32AllocRecorder.cpp" />
-    <ClCompile Include="..\src\Win32AllocTrace.cpp" />
-    <ClCompile Include="..\src\Win32Debug.cpp" />
-    <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Test_allocTrace.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\liballocTrace.vcxproj">
+      <Project>{1c7afb15-2a80-45ef-9a67-62683e9b27f9}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

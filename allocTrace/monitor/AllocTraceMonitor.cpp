@@ -161,11 +161,11 @@ LRESULT AllocTraceMonitor::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM l
 			GetClientRect(hWnd, &r);
 			r.top += 22;
 			m_hTreeList = TreeListCreate(hInstance, hWnd, &r, TREELIST_ANCHOR_RIGHT|TREELIST_ANCHOR_BOTTOM, NULL);
-			TreeListAddColumn(m_hTreeList, (const char*)_TEXT("函数"), 500);
-			TreeListAddColumn(m_hTreeList, (const char*)_TEXT("活跃内存"), 100);
-			TreeListAddColumn(m_hTreeList, (const char*)_TEXT("活跃块"), 100);
-			TreeListAddColumn(m_hTreeList, (const char*)_TEXT("历史内存"), 100);
-			TreeListAddColumn(m_hTreeList, (const char*)_TEXT("历史块"), TREELIST_LAST_COLUMN);
+			TreeListAddColumn(m_hTreeList, _TEXT("函数"), 500);
+			TreeListAddColumn(m_hTreeList, _TEXT("活跃内存"), 100);
+			TreeListAddColumn(m_hTreeList, _TEXT("活跃块"), 100);
+			TreeListAddColumn(m_hTreeList, _TEXT("历史内存"), 100);
+			TreeListAddColumn(m_hTreeList, _TEXT("历史块"), TREELIST_LAST_COLUMN);
 
 			adjustUILayout();
 			createTreeNode(m_pRootNode);

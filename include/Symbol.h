@@ -1,5 +1,5 @@
-#ifndef __ALLOC_TRACE_APPDEBUG_H__
-#define __ALLOC_TRACE_APPDEBUG_H__
+#ifndef __ALLOC_TRACE_SYMBOL_H__
+#define __ALLOC_TRACE_SYMBOL_H__
 
 #include <windows.h>
 #include "container/BaseList.h"
@@ -39,4 +39,4 @@ namespace alloctrace
 }
 
 
-#endif // __ALLOC_TRACE_APPDEBUG_H__
+#endif // __ALLOC_TRACE_SYMBOL_H__

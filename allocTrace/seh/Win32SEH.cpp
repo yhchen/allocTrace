@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include <stdio.h>
 #include "stream/BaseStream.h"
-#include "AppDebug.h"
+#include "Symbol.h"
 #include "SEH.h"
 
 class ExceptionFileRecorder

@@ -56,7 +56,7 @@ using namespace SG2D;
 #include "allocator/SingleObjectAllocator.hpp"
 #include "packet/DataPacket.hpp"
 #include "packet/DataPacketReader.hpp"
-#include "AppDebug.h"
+#include "Symbol.h"
 
 // TODO: 在此处引用程序需要的其他头文件
 #include "resource.h"

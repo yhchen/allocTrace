@@ -21,13 +21,15 @@
   <ItemGroup>
     <ClInclude Include="include\alloctrace.h" />
     <ClInclude Include="include\Platform.h" />
+    <ClInclude Include="include\Symbol.h" />
     <ClInclude Include="include\Type.h" />
     <ClInclude Include="include\_ast.h" />
     <ClInclude Include="include\_memchk.h" />
     <ClInclude Include="src\allocator\ObjectAllocator.hpp" />
     <ClInclude Include="src\allocator\SingleObjectAllocator.hpp" />
-    <ClInclude Include="src\AppDebug.h" />
     <ClInclude Include="src\container\BaseList.h" />
+    <ClInclude Include="src\container\HeapAllocList.h" />
+    <ClInclude Include="src\container\singleton.h" />
     <ClInclude Include="src\OS\Lock.h" />
     <ClInclude Include="src\os\pipe\NamedPipe.h" />
     <ClInclude Include="src\os\pipe\NPComm.h" />
@@ -35,12 +37,13 @@
     <ClInclude Include="src\Packet\DataPacket.hpp" />
     <ClInclude Include="src\Packet\DataPacketReader.hpp" />
     <ClInclude Include="src\packet\HeapAllocDataPacket.hpp" />
+    <ClInclude Include="src\recoder\AllocRecordOutputPipe.h" />
+    <ClInclude Include="src\recoder\Win32AllocRecorder.hpp" />
     <ClInclude Include="src\Stream\BaseStream.h" />
     <ClInclude Include="src\Stream\FileStream.h" />
     <ClInclude Include="src\Stream\HandleStream.h" />
     <ClInclude Include="src\Stream\MemoryStream.h" />
     <ClInclude Include="src\Stream\Stream.h" />
-    <ClInclude Include="src\Win32AllocRecorder.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\extern\automatic_embedded.cpp" />
@@ -49,13 +52,13 @@
     <ClCompile Include="src\os\pipe\NPObject.cpp" />
     <ClCompile Include="src\os\pipe\NPServer.cpp" />
     <ClCompile Include="src\OS\Thread.cpp" />
+    <ClCompile Include="src\recoder\AllocRecordOutputPipe.cpp" />
     <ClCompile Include="src\Stream\BaseStream.cpp" />
     <ClCompile Include="src\Stream\FileStream.cpp" />
     <ClCompile Include="src\Stream\HandleStream.cpp" />
     <ClCompile Include="src\Stream\MemoryStream.cpp" />
-    <ClCompile Include="src\Win32AllocRecorder.cpp" />
+    <ClCompile Include="src\symbol\Symbol.cpp" />
     <ClCompile Include="src\Win32AllocTrace.cpp" />
-    <ClCompile Include="src\Win32Debug.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1C7AFB15-2A80-45EF-9A67-62683E9B27F9}</ProjectGuid>
@@ -142,7 +145,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;x64;X64;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>./;./include;./src;</AdditionalIncludeDirectories>
     </ClCompile>
@@ -178,7 +181,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;x64;X64;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>./;./include;./src;</AdditionalIncludeDirectories>
     </ClCompile>

@@ -75,7 +75,7 @@ typedef struct tag_TreeListNode TreeListNode;
 typedef struct tag_TreeListColumnInfo
 {
     
-    char                ColumnName[TREELIST_MAX_STRING+1];
+	TCHAR               ColumnName[TREELIST_MAX_STRING + 1];
     int                 Width;
     
 };
@@ -2140,7 +2140,7 @@ int  TreeListDestroy         (TREELIST_HANDLE ListTreeHandle)
 //
 ////////////////////////////////////////////////////////////////////////////////////
 
-TreeListError TreeListAddColumn(TREELIST_HANDLE ListTreeHandle,const char *szColumnName,int Width)
+TreeListError TreeListAddColumn(TREELIST_HANDLE ListTreeHandle,const TCHAR *szColumnName,int Width)
 {
     
     
@@ -2172,7 +2172,7 @@ TreeListError TreeListAddColumn(TREELIST_HANDLE ListTreeHandle,const char *szCol
     
     pSession->AllocatedTreeBytes += sizeof(TreeListColumnInfo);
     memset(pSession->pColumnsInfo[pSession->ColumnsCount],0,sizeof(TreeListColumnInfo));
-    strncpy(pSession->pColumnsInfo[pSession->ColumnsCount]->ColumnName,szColumnName,TREELIST_MAX_STRING);
+	_tcsncpy(pSession->pColumnsInfo[pSession->ColumnsCount]->ColumnName, szColumnName, TREELIST_MAX_STRING);
     pSession->pColumnsInfo[pSession->ColumnsCount]->Width = Width;
     
     memset(&pSession->HeaderItem,0,sizeof(HDITEM));
@@ -2189,7 +2189,7 @@ TreeListError TreeListAddColumn(TREELIST_HANDLE ListTreeHandle,const char *szCol
     
     pSession->HeaderItem.fmt        = HDF_CENTER;
     pSession->HeaderItem.pszText    = pSession->pColumnsInfo[pSession->ColumnsCount]->ColumnName;
-    pSession->HeaderItem.cchTextMax = (int)strlen(pSession->pColumnsInfo[pSession->ColumnsCount]->ColumnName);
+	pSession->HeaderItem.cchTextMax = (int)_tcslen(pSession->pColumnsInfo[pSession->ColumnsCount]->ColumnName);
     pSession->ColumnsTotalWidth     += pSession->HeaderItem.cxy;
     Header_InsertItem(pSession->HwndHeader,pSession->ColumnsCount,(LPARAM)&pSession->HeaderItem);
 	//SendMessageA((pSession->HwndHeader), HDM_INSERTITEMA, (WPARAM)(int)(pSession->ColumnsCount), (LPARAM)(const HD_ITEMA *)(&pSession->HeaderItem));

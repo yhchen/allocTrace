@@ -1,5 +1,5 @@
 #include "alloctrace.h"
-#include "AppDebug.h"
+#include "Symbol.h"
 
 namespace alloctrace
 {
@@ -35,12 +35,13 @@ namespace alloctrace
 	class FirstInitor{
 	public:
 		FirstInitor(){
-			alloctrace::InitializeAllocTracer();
+			InitializeAllocTracer();
 			SetAllocTraceOutputPipeName(NP_DEFAULT_PIPENAME);
 		}
 		~FirstInitor(){
-			SetAllocTraceOutputPipeName(NULL);
-			alloctrace::UninitializeAllocTracer();
+			// !!!ATTENTION:为了完整监控释放流程中是否有泄漏不析构tracer!!!
+			//SetAllocTraceOutputPipeName(NULL);
+			//UninitializeAllocTracer();
 		}
 	} firstInitor;
 }

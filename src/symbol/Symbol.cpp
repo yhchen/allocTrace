@@ -1,7 +1,7 @@
 #include <windows.h>
-#include "stream/BaseStream.h"
 #include <DbgHelp.h>
-#include "AppDebug.h"
+#include "stream/BaseStream.h"
+#include "Symbol.h"
 
 #pragma warning(disable:4996)
 

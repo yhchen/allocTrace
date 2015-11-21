@@ -1,7 +1,7 @@
 #include <crtdbg.h>
 #include <malloc.h>
 #include <errno.h>
-#include "AppDebug.h"
+#include "Symbol.h"
 #include "os/Lock.h"
 #include "os/Thread.h"
 #include "os/pipe/NamedPipe.h"
@@ -12,7 +12,8 @@
 #pragma init_seg(compiler)
 
 #include "packet/HeapAllocDataPacket.hpp"
-#include "Win32AllocRecorder.hpp"
+#include "recoder/Win32AllocRecorder.hpp"
+#include "container/singleton.h"
 
 namespace alloctrace
 {
@@ -45,13 +46,12 @@ namespace alloctrace
 			_In_ int _BlockType
 			);
 
-
 		void * __cdecl __at_malloc(
 			size_t size
 			)
 		{
 			void *res = _nh_malloc_dbg(size, _newmode, _NORMAL_BLOCK, NULL, 0);
-			if (res) allocRecorder.record(atAlloc, res, size);
+			if (res) AllocRecorder::instance()->record(atAlloc, res, size);
 			return res;
 		}
 
@@ -61,7 +61,7 @@ namespace alloctrace
 			)
 		{
 			void *res = _calloc_dbg(nNum, nSize, _NORMAL_BLOCK, NULL, 0);
-			if (res) allocRecorder.record(atAlloc, res, nSize);
+			if (res) AllocRecorder::instance()->record(atAlloc, res, nSize);
 			return res;
 		}
 
@@ -72,7 +72,7 @@ namespace alloctrace
 			if (pUserData)
 			{
 				_free_dbg(pUserData, _NORMAL_BLOCK);
-				allocRecorder.record(atFree, pUserData, 0);
+				AllocRecorder::instance()->record(atFree, pUserData, 0);
 			}
 		}
 
@@ -82,8 +82,8 @@ namespace alloctrace
 			)
 		{
 			void *res = _realloc_dbg(pBlock, newsize, _NORMAL_BLOCK, NULL, 0);
-			allocRecorder.record(atFree, pBlock, 0);
-			if (res) allocRecorder.record(atAlloc, res, newsize);
+			AllocRecorder::instance()->record(atFree, pBlock, 0);
+			if (res) AllocRecorder::instance()->record(atAlloc, res, newsize);
 			return res;
 		}
 
@@ -143,7 +143,7 @@ namespace alloctrace
 		{
 			void *res = _malloc_no_trace(size);
 			if (res)
-				allocRecorder.record(atAlloc, res, size);
+				AllocRecorder::instance()->record(atAlloc, res, size);
 			return res;
 		}
 
@@ -156,7 +156,7 @@ namespace alloctrace
 			void * pv = _calloc_impl(num, size, &errno_tmp);
 			if ( pv == NULL && errno_tmp != 0 && _errno())
 				errno = errno_tmp; // recall, #define errno *_errno()
-			else allocRecorder.record(atAlloc, pv, size);
+			else AllocRecorder::instance()->record(atAlloc, pv, size);
 			return pv;
 		}
 
@@ -183,7 +183,7 @@ namespace alloctrace
 			)
 		{
 			if (_free_no_trace(pBlock) == 0)
-				allocRecorder.record(atFree, pBlock, 0);
+				AllocRecorder::instance()->record(atFree, pBlock, 0);
 		}
 
 		void * __cdecl _realloc_no_trace(
@@ -305,8 +305,8 @@ namespace alloctrace
 
 				//  new handler was successful -- try to allocate again
 			}
-			allocRecorder.record(atFree, pBlock, 0);
-			if (res) allocRecorder.record(atAlloc, res, newsize);
+			AllocRecorder::instance()->record(atFree, pBlock, 0);
+			if (res) AllocRecorder::instance()->record(atAlloc, res, newsize);
 			return res;
 		}
 
@@ -325,8 +325,8 @@ namespace alloctrace
 				return NULL;
 			}
 			void *res = _realloc_imp(pBlock, newsize);
-			allocRecorder.record(atFree, pBlock, 0);
-			if (res) allocRecorder.record(atAlloc, res, newsize);
+			AllocRecorder::instance()->record(atFree, pBlock, 0);
+			if (res) AllocRecorder::instance()->record(atAlloc, res, newsize);
 			return res;
 	}
 #endif
@@ -342,6 +342,11 @@ namespace alloctrace
 	{
 		unsigned char code;
 		unsigned int offset;
+		void CalcJmpOffset(void* origin_fn, void* new_fn)
+		{	//计算跳转偏移地址
+			code = 0xE9;
+			offset = (UINT)((SIZE_T)(new_fn)-((SIZE_T)(origin_fn)+5));
+		}
 	};
 
 	struct JMPInstruct64
@@ -349,23 +354,26 @@ namespace alloctrace
 		unsigned short code;
 		unsigned int loAddrCST;
 		unsigned __int64 offset;
+		void CalcJmpOffset(void* origin_fn, void* new_fn)
+		{	//计算跳转偏移地址
+			code = 0x25FF;
+			loAddrCST = 0;//固定为0
+			offset = (SIZE_T)new_fn;
+		}
 	};
 
-	union JMPInstruct
-	{
-		JMPInstruct32 c32;
-		JMPInstruct64 c64;
-	};
+#if defined(x64)
+	typedef JMPInstruct64 JMPInstruct;
+#else
+	typedef JMPInstruct32 JMPInstruct;
+#endif
+
 #pragma pack(pop)
 
-	//计算跳转偏移地址
-#define CalcJmpOffset32(s, d)	((SIZE_T)(d) - ((SIZE_T)(s) + 5))
-#define CalcJmpOffset64(s, d)	((SIZE_T)(d))
-
-	union JMPInstruct CodeSourceMalloc;
-	union JMPInstruct CodeSourceCalloc;
-	union JMPInstruct CodeSourceRealloc;
-	union JMPInstruct CodeSourceFree;
+	JMPInstruct CodeSourceMalloc;
+	JMPInstruct CodeSourceCalloc;
+	JMPInstruct CodeSourceRealloc;
+	JMPInstruct CodeSourceFree;
 
 	int PathJmpCode(JMPInstruct* code, JMPInstruct* newCode)
 	{
@@ -380,10 +388,7 @@ namespace alloctrace
 			return GetLastError();
 
 		//改写跳转代码
-		if (sizeof(void*) == 8)
-			code->c64 = newCode->c64;
-		else if (sizeof(void*) == 4)
-			code->c32 = newCode->c32;
+		*code = *newCode;
 
 		//还原_output_l函数的内存保护模式
 		if (!VirtualProtect(code, sizeof(*code), dwOldProtect, &dwOldProtect))
@@ -398,25 +403,14 @@ namespace alloctrace
 		*save = *fn;
 
 		JMPInstruct pc;
-		if (sizeof(void*) == 8)
-		{
-			//JMP [OFFSET]
-			pc.c64.code = 0x25FF;
-			pc.c64.loAddrCST = 0;//固定为0
-			pc.c64.offset = CalcJmpOffset64(origin_fn, new_fn);
-		}
-		else if (sizeof(void*) == 4)
-		{
-			pc.c32.code = 0xE9;
-			pc.c32.offset = (UINT)CalcJmpOffset32(origin_fn, new_fn);
-		}
-
-
+		//JMP [OFFSET]
+		pc.CalcJmpOffset(origin_fn, new_fn);
 		return PathJmpCode(fn, &pc);
 	}
 
 	void InitializeAllocTracer()
 	{
+		AllocRecorder::initialize();
 		RedirectFunction(&malloc, &__at_malloc, &CodeSourceMalloc);
 		RedirectFunction(&calloc, &__at_calloc, &CodeSourceCalloc);
 		RedirectFunction(&realloc, &__at_realloc, &CodeSourceRealloc);
@@ -425,34 +419,32 @@ namespace alloctrace
 
 	void UninitializeAllocTracer()
 	{
-		if (CodeSourceMalloc.c64.code)
+		if (CodeSourceMalloc.code)
 		{
 			PathJmpCode((JMPInstruct *)&malloc, &CodeSourceMalloc);
-			CodeSourceMalloc.c64.code = 0;
+			CodeSourceMalloc.code = 0;
 		}
-		if (CodeSourceCalloc.c64.code)
+		if (CodeSourceCalloc.code)
 		{
 			PathJmpCode((JMPInstruct *)&calloc, &CodeSourceCalloc);
-			CodeSourceCalloc.c64.code = 0;
+			CodeSourceCalloc.code = 0;
 		}
-		if (CodeSourceRealloc.c64.code)
+		if (CodeSourceRealloc.code)
 		{
 			PathJmpCode((JMPInstruct *)&realloc, &CodeSourceRealloc);
-			CodeSourceRealloc.c64.code = 0;
+			CodeSourceRealloc.code = 0;
 		}
-		if (CodeSourceFree.c64.code)
+		if (CodeSourceFree.code)
 		{
 			PathJmpCode((JMPInstruct *)&free, &CodeSourceFree);
-			CodeSourceFree.c64.code = 0;
+			CodeSourceFree.code = 0;
 		}
+		AllocRecorder::uninitialize();
 	}
-
-	AllocRecorder allocRecorder;
-	static bool g_boDestroyFlag = true;
 
 	void SetAllocTraceOutputPipeName(const TCHAR* pipeName)
 	{
-		allocRecorder.setOutputPipeName(pipeName);
+		AllocRecorder::instance()->setOutputPipeName(pipeName);
 	}
 }
 

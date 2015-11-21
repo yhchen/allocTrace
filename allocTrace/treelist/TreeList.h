@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <windows.h>
+#include <tchar.h>
 #include <commctrl.h>
 #include <windowsx.h>
 
@@ -146,7 +147,7 @@ int             TreeListDestroy         (TREELIST_HANDLE ListTreeHandle);
 //
 ////////////////////////////////////////////////////////////////////////////////////
 
-TreeListError   TreeListAddColumn       (TREELIST_HANDLE ListTreeHandle,const char *szColumnName,int Width);
+TreeListError   TreeListAddColumn       (TREELIST_HANDLE ListTreeHandle,const TCHAR *szColumnName,int Width);
 
 
 ////////////////////////////////////////////////////////////////////////////////////
