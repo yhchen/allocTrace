@@ -163,7 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Test_allocTrace.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\liballocTrace.vcxproj">

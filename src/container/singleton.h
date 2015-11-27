@@ -19,13 +19,15 @@ namespace alloctrace
 		// ÊÍ·Åµ¥Àý
 		static void uninitialize()
 		{
-			assert(s_Type != NULL);
-			delete s_Type; s_Type = NULL;
+			if (s_Type)
+			{
+				delete s_Type;
+				s_Type = NULL;
+			}
 		}
 
 		static _Type* instance()
 		{
-			assert(s_Type != NULL);
 			return s_Type;
 		}
 

@@ -370,10 +370,10 @@ namespace alloctrace
 
 #pragma pack(pop)
 
-	JMPInstruct CodeSourceMalloc;
-	JMPInstruct CodeSourceCalloc;
-	JMPInstruct CodeSourceRealloc;
-	JMPInstruct CodeSourceFree;
+	JMPInstruct CodeSourceMalloc = { 0 };
+	JMPInstruct CodeSourceCalloc = { 0 };
+	JMPInstruct CodeSourceRealloc = { 0 };
+	JMPInstruct CodeSourceFree = { 0 };
 
 	int PathJmpCode(JMPInstruct* code, JMPInstruct* newCode)
 	{
@@ -410,11 +410,16 @@ namespace alloctrace
 
 	void InitializeAllocTracer()
 	{
-		AllocRecorder::initialize();
-		RedirectFunction(&malloc, &__at_malloc, &CodeSourceMalloc);
-		RedirectFunction(&calloc, &__at_calloc, &CodeSourceCalloc);
-		RedirectFunction(&realloc, &__at_realloc, &CodeSourceRealloc);
-		RedirectFunction(&free, &__at_free, &CodeSourceFree);
+		if (AllocRecorder::instance() == NULL)
+			AllocRecorder::initialize();
+		if (!CodeSourceMalloc.code)
+			RedirectFunction(&malloc, &__at_malloc, &CodeSourceMalloc);
+		if (!CodeSourceCalloc.code)
+			RedirectFunction(&calloc, &__at_calloc, &CodeSourceCalloc);
+		if (!CodeSourceRealloc.code)
+			RedirectFunction(&realloc, &__at_realloc, &CodeSourceRealloc);
+		if (!CodeSourceFree.code)
+			RedirectFunction(&free, &__at_free, &CodeSourceFree);
 	}
 
 	void UninitializeAllocTracer()
