@@ -133,6 +133,7 @@
     <OutDir>$(SolutionDir)$(Configuration)\$(Platform)\</OutDir>
     <IntDir>D:\ProjectsRoots\cpp\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
     <IgnoreImportLibrary>false</IgnoreImportLibrary>
+    <TargetName>$(ProjectName)X86D</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -141,16 +142,19 @@
     <IgnoreImportLibrary>false</IgnoreImportLibrary>
     <IncludePath>..\wylib\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\..\..\top\trunk\cpp\3rdlib\x64;$(LibraryPath)</LibraryPath>
+    <TargetName>$(ProjectName)X64D</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IntDir>D:\ProjectsRoots\cpp\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)$(Configuration)\$(Platform)\</OutDir>
+    <TargetName>$(ProjectName)X86</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IntDir>D:\ProjectsRoots\cpp\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)$(Configuration)\$(Platform)\</OutDir>
+    <TargetName>$(ProjectName)X64</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
