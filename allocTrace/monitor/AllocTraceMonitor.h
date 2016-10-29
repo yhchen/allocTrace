@@ -17,9 +17,9 @@ class AllocTraceMonitor : public Object, public wylib::window::CClassedWnd
 public:
 	typedef CClassedWnd super;
 	typedef SG2D::StringHashMap<int> NameMap;
-	//typedef map<SG2D::String, int> NameMap;
-	typedef map<void*, AllocBlockRecord> BlockMap;
-	typedef map<size_t, SG2D::String> SymbolMap;
+	//typedef unordered_map<SG2D::String, int> NameMap;
+	typedef unordered_map<const void*, AllocBlockRecord> BlockMap;
+	typedef unordered_map<size_t, SG2D::String> SymbolMap;
 
 protected:
 	HANDLE m_hMainWorkThread;

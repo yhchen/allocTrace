@@ -383,7 +383,7 @@ void AllocTraceMonitor::recordAlloc(const AllocRecord &rec, size_t *frames)
 	AllocBlockRecord block;
 	block.blockSize = rec.size;
 	block.node = parentNode;
-	m_BlockMap.insert(std::pair<void*, AllocBlockRecord>(rec.ptr, block));
+	m_BlockMap.insert(std::pair<const void*, AllocBlockRecord>(rec.ptr, block));
 	m_boTreeDataDirty = TRUE;
 }
 

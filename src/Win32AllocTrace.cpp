@@ -451,6 +451,12 @@ namespace alloctrace
 	{
 		AllocRecorder::instance()->setOutputPipeName(pipeName);
 	}
+
+	void CustomAllocRecorder(AllocRecordType _type, const void* _buffer, size_t _size)
+	{
+		AllocRecorder::instance()->record(_type, _buffer, _size);
+	}
+
 }
 
 

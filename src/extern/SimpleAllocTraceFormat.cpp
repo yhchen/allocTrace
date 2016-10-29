@@ -115,7 +115,7 @@ namespace alloctrace
 	class SimpleAllocTraceFormat
 	{
 	private:
-		typedef std::map<void*, AllocRecordSample> AllocRecordMap;
+		typedef unordered_map<void*, AllocRecordSample> AllocRecordMap;
 		typedef pair<void*, AllocRecordSample> AllocRecordPair;
 
 	private:

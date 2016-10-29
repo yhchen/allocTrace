@@ -96,7 +96,7 @@ namespace alloctrace
 				}
 			}
 		}
-		void record(AllocRecordType _type, void* _ptr, size_t _size)
+		void record(AllocRecordType _type, const void* _ptr, size_t _size)
 		{
 			AllocRecordEx rec;
 			rec.type = _type;
