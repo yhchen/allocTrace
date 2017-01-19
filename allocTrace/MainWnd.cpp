@@ -252,7 +252,7 @@ void MainWnd::initWindow()
 
 		WndClassAtom = ::RegisterClassExA(&wcex);
 	}
-	MyCreateWindowEx(0, szWndClassName, "AllocTrace 1.0.1 Beta 广州硕星信息科技有限公司", WS_OVERLAPPEDWINDOW,
+	MyCreateWindowEx(0, szWndClassName, "AllocTrace 1.0.2 Beta", WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, GetModuleHandle(NULL), NULL);
 }
 
