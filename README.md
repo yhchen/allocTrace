@@ -9,3 +9,6 @@ usage :
 	 * Configuration Properties -> Linker -> Input -> Force Symbol References
 	 * enter : "__allocTrace;"
 	 * alloctrace library loaded! Enjoy~~
+
+example:
+	 ![image](https://github.com/yhchen/allocTrace/blob/master/example.png)
