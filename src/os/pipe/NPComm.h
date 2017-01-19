@@ -5,9 +5,11 @@
 
 /*	默认命名管道名称		*/
 #if defined(x64)
-#define	NP_DEFAULT_PIPENAME		_TEXT("\\\\.\\pipe\\HSAllocTraceServer_x64")
+#	define	NP_DEFAULT_PIPENAME		_TEXT("\\\\.\\pipe\\HSAllocTraceServer_x64")
+#elif defined(x86)
+#	define	NP_DEFAULT_PIPENAME		_TEXT("\\\\.\\pipe\\HSAllocTraceServer_x86")
 #else
-#define	NP_DEFAULT_PIPENAME		_TEXT("\\\\.\\pipe\\HSAllocTraceServer_x86")
+#	error "x64 or x86 not defined!"
 #endif
 
 /*	管道默认输入缓冲大小	*/

@@ -35,8 +35,7 @@ namespace alloctrace
 	class FirstInitor{
 	public:
 		FirstInitor(){
-			InitializeAllocTracer();
-			SetAllocTraceOutputPipeName(NP_DEFAULT_PIPENAME);
+			InitializeAllocTracer(true, NP_DEFAULT_PIPENAME);
 		}
 		~FirstInitor(){
 			// !!!ATTENTION:为了完整监控释放流程中是否有泄漏不析构tracer!!!

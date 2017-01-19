@@ -91,26 +91,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120_xp</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120_xp</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120_xp</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120_xp</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -131,14 +131,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)$(Configuration)\$(Platform)\</OutDir>
-    <IntDir>D:\ProjectsRoots\cpp\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
     <IgnoreImportLibrary>false</IgnoreImportLibrary>
     <TargetName>$(ProjectName)X86D</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)$(Configuration)\$(Platform)\</OutDir>
-    <IntDir>D:\ProjectsRoots\cpp\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
     <IgnoreImportLibrary>false</IgnoreImportLibrary>
     <IncludePath>..\wylib\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\..\..\top\trunk\cpp\3rdlib\x64;$(LibraryPath)</LibraryPath>
@@ -146,19 +144,17 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IntDir>D:\ProjectsRoots\cpp\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)$(Configuration)\$(Platform)\</OutDir>
     <TargetName>$(ProjectName)X86</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IntDir>D:\ProjectsRoots\cpp\$(SolutionName)\$(ProjectName)\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)$(Configuration)\$(Platform)\</OutDir>
     <TargetName>$(ProjectName)X64</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>_CRT_NON_CONFORMING_SWPRINTFS;_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_NON_CONFORMING_SWPRINTFS;_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;x86;X86;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -176,7 +172,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PreprocessorDefinitions>_CRT_NON_CONFORMING_SWPRINTFS;_CRT_SECURE_NO_WARNINGS;WIN32;X64;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;_UTFSTR;_MAPNEW;x64;X64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_NON_CONFORMING_SWPRINTFS;_CRT_SECURE_NO_WARNINGS;WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_UTFSTR;_MAPNEW;x64;X64;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -201,7 +197,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>_CRT_NON_CONFORMING_SWPRINTFS;_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_NON_CONFORMING_SWPRINTFS;_CRT_SECURE_NO_WARNINGS;WIN32;_WINDOWS;x86;X86;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -219,7 +215,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PreprocessorDefinitions>_CRT_NON_CONFORMING_SWPRINTFS;_CRT_SECURE_NO_WARNINGS;WIN32;X64;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDOWS;_UTFSTR;_MAPNEW;x64;X64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_NON_CONFORMING_SWPRINTFS;_CRT_SECURE_NO_WARNINGS;WIN32;_CRT_SECURE_NO_WARNINGS;_WINDOWS;_UTFSTR;_MAPNEW;x64;X64;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>

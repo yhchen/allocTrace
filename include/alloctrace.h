@@ -26,7 +26,8 @@ namespace alloctrace
 
 
 	//初始化内存分配追踪记录
-	void InitializeAllocTracer();
+	//如果szPipeName为NULL则使用默认管道名
+	void InitializeAllocTracer(bool boRedirectFunc, const TCHAR* szPipeName = NULL);
 	//销毁内存分配追踪记录
 	void UninitializeAllocTracer();
 	//设置内存分配追踪记录管道

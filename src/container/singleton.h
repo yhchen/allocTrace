@@ -12,8 +12,10 @@ namespace alloctrace
 		// 初始化单例
 		static void initialize()
 		{
-			assert(s_Type == NULL);
-			s_Type = new _Type;
+			if (s_Type == NULL)
+			{
+				s_Type = new _Type;
+			}
 		}
 
 		// 释放单例

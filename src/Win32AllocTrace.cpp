@@ -14,6 +14,7 @@
 #include "packet/HeapAllocDataPacket.hpp"
 #include "recoder/Win32AllocRecorder.hpp"
 #include "container/singleton.h"
+#include "os/pipe/NPComm.h"
 
 namespace alloctrace
 {
@@ -408,18 +409,24 @@ namespace alloctrace
 		return PathJmpCode(fn, &pc);
 	}
 
-	void InitializeAllocTracer()
+	void InitializeAllocTracer(bool boRedirectFunc, const TCHAR* szPipeName)
 	{
+		if (!szPipeName)
+			szPipeName = NP_DEFAULT_PIPENAME;
 		if (AllocRecorder::instance() == NULL)
 			AllocRecorder::initialize();
-		if (!CodeSourceMalloc.code)
-			RedirectFunction(&malloc, &__at_malloc, &CodeSourceMalloc);
-		if (!CodeSourceCalloc.code)
-			RedirectFunction(&calloc, &__at_calloc, &CodeSourceCalloc);
-		if (!CodeSourceRealloc.code)
-			RedirectFunction(&realloc, &__at_realloc, &CodeSourceRealloc);
-		if (!CodeSourceFree.code)
-			RedirectFunction(&free, &__at_free, &CodeSourceFree);
+		if (boRedirectFunc)
+		{
+			if (!CodeSourceMalloc.code)
+				RedirectFunction(&malloc, &__at_malloc, &CodeSourceMalloc);
+			if (!CodeSourceCalloc.code)
+				RedirectFunction(&calloc, &__at_calloc, &CodeSourceCalloc);
+			if (!CodeSourceRealloc.code)
+				RedirectFunction(&realloc, &__at_realloc, &CodeSourceRealloc);
+			if (!CodeSourceFree.code)
+				RedirectFunction(&free, &__at_free, &CodeSourceFree);
+		}
+		SetAllocTraceOutputPipeName(szPipeName);
 	}
 
 	void UninitializeAllocTracer()
