@@ -12,7 +12,7 @@
 #pragma init_seg(compiler)
 
 #include "packet/HeapAllocDataPacket.hpp"
-#include "recoder/Win32AllocRecorder.hpp"
+#include "recoder/Win32AllocRecorder.h"
 #include "container/singleton.h"
 #include "os/pipe/NPComm.h"
 
@@ -51,7 +51,8 @@ namespace alloctrace
 			size_t size
 			)
 		{
-			void *res = _nh_malloc_dbg(size, _newmode, _NORMAL_BLOCK, NULL, 0);
+			void *res = HeapAlloc(GetProcessHeap(), HEAP_GENERATE_EXCEPTIONS, size);
+// 			void *res = _nh_malloc_dbg(size, _newmode, _NORMAL_BLOCK, NULL, 0);
 			if (res) AllocRecorder::instance()->record(atAlloc, res, size);
 			return res;
 		}
@@ -61,7 +62,8 @@ namespace alloctrace
 			size_t nSize
 			)
 		{
-			void *res = _calloc_dbg(nNum, nSize, _NORMAL_BLOCK, NULL, 0);
+			void *res = HeapAlloc(GetProcessHeap(), HEAP_GENERATE_EXCEPTIONS | HEAP_ZERO_MEMORY, nNum * nSize);
+// 			void *res = _calloc_dbg(nNum, nSize, _NORMAL_BLOCK, NULL, 0);
 			if (res) AllocRecorder::instance()->record(atAlloc, res, nSize);
 			return res;
 		}
@@ -72,7 +74,8 @@ namespace alloctrace
 		{
 			if (pUserData)
 			{
-				_free_dbg(pUserData, _NORMAL_BLOCK);
+				HeapFree(GetProcessHeap(), HEAP_GENERATE_EXCEPTIONS, pUserData);
+// 				_free_dbg(pUserData, _NORMAL_BLOCK);
 				AllocRecorder::instance()->record(atFree, pUserData, 0);
 			}
 		}
@@ -82,7 +85,8 @@ namespace alloctrace
 			size_t newsize
 			)
 		{
-			void *res = _realloc_dbg(pBlock, newsize, _NORMAL_BLOCK, NULL, 0);
+			void *res = HeapReAlloc(GetProcessHeap(), HEAP_GENERATE_EXCEPTIONS, pBlock, newsize);
+// 			void *res = _realloc_dbg(pBlock, newsize, _NORMAL_BLOCK, NULL, 0);
 			AllocRecorder::instance()->record(atFree, pBlock, 0);
 			if (res) AllocRecorder::instance()->record(atAlloc, res, newsize);
 			return res;
@@ -463,7 +467,6 @@ namespace alloctrace
 	{
 		AllocRecorder::instance()->record(_type, _buffer, _size);
 	}
-
 }
 
 

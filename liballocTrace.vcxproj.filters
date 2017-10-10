@@ -108,7 +108,7 @@
     <ClInclude Include="src\recoder\AllocRecordOutputPipe.h">
       <Filter>src\recoder</Filter>
     </ClInclude>
-    <ClInclude Include="src\recoder\Win32AllocRecorder.hpp">
+    <ClInclude Include="src\recoder\Win32AllocRecorder.h">
       <Filter>src\recoder</Filter>
     </ClInclude>
   </ItemGroup>
@@ -150,6 +150,9 @@
       <Filter>src\symbol</Filter>
     </ClCompile>
     <ClCompile Include="src\recoder\AllocRecordOutputPipe.cpp">
+      <Filter>src\recoder</Filter>
+    </ClCompile>
+    <ClCompile Include="src\recoder\Win32AllocRecorder.cpp">
       <Filter>src\recoder</Filter>
     </ClCompile>
   </ItemGroup>

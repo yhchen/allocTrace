@@ -38,7 +38,7 @@
     <ClInclude Include="src\Packet\DataPacketReader.hpp" />
     <ClInclude Include="src\packet\HeapAllocDataPacket.hpp" />
     <ClInclude Include="src\recoder\AllocRecordOutputPipe.h" />
-    <ClInclude Include="src\recoder\Win32AllocRecorder.hpp" />
+    <ClInclude Include="src\recoder\Win32AllocRecorder.h" />
     <ClInclude Include="src\Stream\BaseStream.h" />
     <ClInclude Include="src\Stream\FileStream.h" />
     <ClInclude Include="src\Stream\HandleStream.h" />
@@ -53,6 +53,7 @@
     <ClCompile Include="src\os\pipe\NPServer.cpp" />
     <ClCompile Include="src\OS\Thread.cpp" />
     <ClCompile Include="src\recoder\AllocRecordOutputPipe.cpp" />
+    <ClCompile Include="src\recoder\Win32AllocRecorder.cpp" />
     <ClCompile Include="src\Stream\BaseStream.cpp" />
     <ClCompile Include="src\Stream\FileStream.cpp" />
     <ClCompile Include="src\Stream\HandleStream.cpp" />
@@ -109,16 +110,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)lib\$(Configuration)\$(Platform)\</OutDir>
+    <OutDir>$(SolutionDir)\lib\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)lib\$(Configuration)\$(Platform)\</OutDir>
+    <OutDir>$(SolutionDir)\lib\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)lib\$(Configuration)\$(Platform)\</OutDir>
+    <OutDir>$(SolutionDir)\lib\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)lib\$(Configuration)\$(Platform)\</OutDir>
+    <OutDir>$(SolutionDir)\lib\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -126,7 +127,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_LIB;x86;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_NO_VA_START_VALIDATION;WIN32;_LIB;x86;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>./;./include;./src;</AdditionalIncludeDirectories>
     </ClCompile>
@@ -144,7 +145,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_LIB;x64;X64;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_NO_VA_START_VALIDATION;WIN32;_LIB;x64;X64;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>./;./include;./src;</AdditionalIncludeDirectories>
     </ClCompile>
@@ -164,7 +165,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;_LIB;x86;X86;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_NO_VA_START_VALIDATION;WIN32;_LIB;x86;X86;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>./;./include;./src;</AdditionalIncludeDirectories>
     </ClCompile>
@@ -186,7 +187,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;_LIB;x64;X64;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_NO_VA_START_VALIDATION;WIN32;_LIB;x64;X64;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <AdditionalIncludeDirectories>./;./include;./src;</AdditionalIncludeDirectories>
     </ClCompile>

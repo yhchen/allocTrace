@@ -1,5 +1,4 @@
 #include <string>
-#include "alloctrace.h"
 #include "NamedPipe.h"
 #include "NPComm.h"
 #if defined(WIN32)
@@ -19,7 +18,7 @@ CNamedPipeObject::CNamedPipeObject()
   m_hPipe			= INVALID_HANDLE_VALUE;
   m_boActive		= FALSE;
   m_dwTimeOut		= NP_DEFAULT_TIMEOUT;
-  SetPipeName(NP_DEFAULT_PIPENAME);
+  SetPipeName( NP_DEFAULT_PIPENAME );
 }
 
 CNamedPipeObject::~CNamedPipeObject()
